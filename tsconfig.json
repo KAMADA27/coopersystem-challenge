@@ -31,6 +31,9 @@
       "@modules/*": [
         "app/modules/*"
       ],
+      "@shared/*": [
+        "app/shared/*"
+      ],
     },
     "lib": [
       "es2020",
