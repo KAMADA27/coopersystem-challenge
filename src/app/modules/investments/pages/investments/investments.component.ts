@@ -4,6 +4,7 @@ import { Investment } from '@data/schema/investment';
 import { InvestmentService } from '@core/services/investment.service';
 import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-investments',
@@ -14,7 +15,11 @@ export class InvestmentsComponent implements OnInit {
   error: string | undefined;
   investments!: Investment[];
 
-  constructor(private investmentService: InvestmentService) { }
+  constructor(
+    private investmentService: InvestmentService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.getInvestmentService();
@@ -43,5 +48,17 @@ export class InvestmentsComponent implements OnInit {
         catchError(error => of((this.error = error)))
       )
       .subscribe();
+  }
+
+  shortageIndicatorHandler(investment: Investment): void {
+    const { shortageIndicator, name } = investment;
+
+    if (shortageIndicator === 'S') {
+      return;
+    }
+
+    this.router.navigate([name.split(' ').join('')], {
+      relativeTo: this.activatedRoute
+    });
   }
 }

@@ -9,7 +9,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let investment of investments">
+      <tr
+        *ngFor="let investment of investments"
+        [ngClass]="{
+          'table-warning investments__table-row': investment.shortageIndicator === 'N'
+        }"
+        (click)="shortageIndicatorHandler(investment)"
+      >
         <td>{{ investment.name }}</td>
         <td>{{ investment.goal }}</td>
         <td>{{ investment.totalBalance | currency : 'BRL' }}</td>

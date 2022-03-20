@@ -7,4 +7,8 @@
   &__table-header {
     text-transform: uppercase;
   }
+
+  &__table-row {
+    cursor: pointer;
+  }
 }
