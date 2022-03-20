@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { InvestmentsModule } from '@modules/investments/investments.module';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CoreModule } from '@core/core.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
+    CoreModule,
     InvestmentsModule,
     AppRoutingModule,
     BrowserAnimationsModule

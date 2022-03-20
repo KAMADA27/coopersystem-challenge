@@ -1,1 +1,20 @@
-<p>investments works!</p>
+<div class="container">
+  <h1 class="investments__title">INVESTIMENTOS</h1>
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr class="investments__table-header">
+        <th scope="col">Nome</th>
+        <th scope="col">Objetivo</th>
+        <th scope="col">Saldo total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let investment of investments">
+        <td>{{ investment.name }}</td>
+        <td>{{ investment.goal }}</td>
+        <td>{{ investment.totalBalance | currency : 'BRL' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
