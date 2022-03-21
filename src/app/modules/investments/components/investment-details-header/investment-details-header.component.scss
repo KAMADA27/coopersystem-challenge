@@ -1,0 +1,18 @@
+.header {
+  padding: 0.5rem 1rem;
+  border: 0.1rem solid gray;
+  border-radius: 0.5rem;
+
+  &__icon {
+    margin-right: 1rem;
+  }
+
+  &__icon-size {
+    font-size: 2rem;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}

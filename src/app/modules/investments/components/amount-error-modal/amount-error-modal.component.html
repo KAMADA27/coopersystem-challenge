@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <h4 class="modal-title text-center text-uppercase text-center">Dados inválidos!</h4>
+  <div class="d-flex flex-column text-center">
+    <span class="mt-5 mb-3">Você preencheu um ou mais campos com um valor acima do permitido:</span>
+    <span *ngFor="let item of stockErroList"><b>{{ item.name }}</b>: O valor a resgatar não pode ser maior que {{ totalBalance * (item.percentage / 100) | currency: 'BRL' }}</span>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary text-uppercase mb-3" (click)="activeModal.close('Close click')">
+    Corrigir
+  </button>
+</div>

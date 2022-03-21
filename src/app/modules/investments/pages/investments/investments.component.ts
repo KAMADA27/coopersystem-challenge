@@ -57,6 +57,8 @@ export class InvestmentsComponent implements OnInit {
       return;
     }
 
+    this.investmentService.setInvestment(investment);
+
     this.router.navigate([name.split(' ').join('')], {
       relativeTo: this.activatedRoute
     });

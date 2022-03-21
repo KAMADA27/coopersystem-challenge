@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-between header">
+  <div class="d-flex align-items-center">
+    <div class="header__icon">
+      <i class="bi bi-person-fill header__icon-size"></i>
+    </div>
+    <div class="d-flex flex-column">
+      <span class="header__title">Nome</span>
+      {{ name }}
+    </div>
+  </div>
+  <div class="vr"></div>
+  <div class="d-flex align-items-center">
+    <div class="header__icon">
+      <i class="bi bi-graph-up header__icon-size"></i>
+    </div>
+    <div class="d-flex flex-column">
+      <span class="header__title">Objetivo</span>
+      {{ goal }}
+    </div>
+  </div>
+  <div class="vr"></div>
+  <div class="d-flex align-items-center">
+    <div class="header__icon">
+      <i class="bi bi-coin header__icon-size"></i>
+    </div>
+    <div class="d-flex flex-column">
+      <span class="header__title">Saldo Total</span>
+      {{ totalBalance | currency : 'BRL' }}
+    </div>
+  </div>
+</div>

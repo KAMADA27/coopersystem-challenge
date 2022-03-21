@@ -1,1 +1,56 @@
-<p>investment-details works!</p>
+<div class="container">
+  <app-title [title]="'Dados do investimento'"></app-title>
+  <app-investment-details-header
+    [name]="investment.name"
+    [goal]="investment.goal"
+    [totalBalance]="investment.totalBalance"
+  >
+  </app-investment-details-header>
+  <app-title [title]="'Resgate'"></app-title>
+  <div class="stock">
+    <div class="d-flex justify-content-between stock__header">
+      <div class="col">Ação</div>
+      <div class="col">Saldo Acumulado</div>
+      <div class="col">Valor a resgatar</div>
+    </div>
+    <div class="stock__h-divider"></div>
+    <div class="d-flex flex-column">
+      <ng-container *ngFor="let item of investment.stock; let index = index; let last = last">
+        <div class="d-flex justify-content-between stock__container">
+          <div class="col">{{ item.name }}</div>
+          <div class="col">
+            {{ accumulatedBalanceHandler(item.percentage) | currency : 'BRL' }}
+          </div>
+          <div class="col">
+            <form [formGroup]="stockForm">
+              <div class="form-group">
+                <input
+                  currencyMask
+                  type="text"
+                  class="form-control"
+                  placeholder="Digite quanto quer resgatar"
+                  [formControlName]="item.id"
+                  appAmountToRedeemValidator
+                  [amount]="accumulatedBalanceHandler(item.percentage)"
+                >
+                <app-control-messages [control]="f[item.id]"></app-control-messages>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div
+          class="stock__h-divider"
+          [ngClass]="{'stock__h-divider--none': last }"
+        >
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="stock stock__container">
+    <span><b>Valor total do resgate:</b> {{ getTotalAmount() | currency : 'BRL' }}</span>
+  </div>
+  <div class="d-flex justify-content-center mb-5">
+    <button type="button" class="btn btn-secondary me-3" (click)="back()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="submit()">Confirmar resgate</button>
+  </div>
+</div>

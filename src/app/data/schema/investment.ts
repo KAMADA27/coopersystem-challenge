@@ -5,5 +5,5 @@ export interface Investment {
   goal: string;
   totalBalance: number;
   shortageIndicator: string;
-  stock: Stock
+  stock: Stock[]
 }
