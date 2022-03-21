@@ -98,35 +98,37 @@ export class InvestmentDetailsComponent implements OnInit {
     this._location.back();
   }
 
-  updateStock(): void {
-    let totalBalance = 0;
-
-    this.investment.stock.forEach(stock => {
-      totalBalance += this.stockForm.value[stock.id];
-    });
-
-    totalBalance = this.investment.totalBalance - totalBalance;
-
-    this.investment.stock = this.investment.stock.map(stock => {
-      const currBalance = this.accumulatedBalanceHandler(stock.percentage);
-      const newBalance = currBalance - this.stockForm.value[stock.id];
-      const newPercentage = (newBalance / totalBalance) * 100;
-      
-      stock.percentage = Number(newPercentage.toFixed(2));
-
-      return stock;
-    });
-
+  setNewInvestment(): void {
     this.investments = this.investments.map(currInvestment => {
       if (currInvestment.name === this.investment.name) {
         currInvestment = this.investment;
-        currInvestment.totalBalance = totalBalance;
+        currInvestment.totalBalance = this.totalBalance;
       }
 
       return currInvestment;
     });
 
     this.investmentsService.setInvestmentsToLocal(this.investments);
+  }
+
+  updateStock(): void {
+    this.investment.stock.forEach(stock => {
+      this.totalBalance += this.stockForm.value[stock.id];
+    });
+
+    this.totalBalance = this.investment.totalBalance - this.totalBalance;
+
+    this.investment.stock = this.investment.stock.map(stock => {
+      const currBalance = this.accumulatedBalanceHandler(stock.percentage);
+      const newBalance = currBalance - this.stockForm.value[stock.id];
+      const newPercentage = (newBalance / this.totalBalance) * 100;
+      
+      stock.percentage = Number(newPercentage.toFixed(2));
+
+      return stock;
+    });
+
+    this.setNewInvestment();
   }
 
   submit(): void {
