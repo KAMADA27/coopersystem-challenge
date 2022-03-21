@@ -21,14 +21,13 @@ export class AmountErrorModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStock();
-    console.log(this.stockIdErrorList);
   }
 
   getStock(): void {
     const stock = this.investmentService.getInvestment().stock;
 
     stock.forEach(item => {
-      this.stockIdErrorList.forEach(stockId => {
+      this.stockIdErrorList?.forEach(stockId => {
         if (item.id === stockId) {
           this.stockErroList.push(item);
         }

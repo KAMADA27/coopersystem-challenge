@@ -8,13 +8,13 @@ import { ValidationService } from '@shared/services/validation.service';
   styleUrls: ['./control-messages.component.scss']
 })
 export class ControlMessagesComponent {
-  @Input() control!: FormControl;
+  @Input() control?: FormControl;
 
   get errorMessage(): boolean {
-    for (const propertyName in this.control.errors) {
+    for (const propertyName in this.control?.errors) {
       if (
-        this.control.errors.hasOwnProperty(propertyName) &&
-        this.control.touched
+        this.control?.errors.hasOwnProperty(propertyName) &&
+        this.control?.touched
       ) {
         return ValidationService.getValidationErrorMessage(
           propertyName,

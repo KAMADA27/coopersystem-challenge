@@ -14,8 +14,14 @@ import { AmountErrorModalComponent } from '../../components/amount-error-modal/a
   styleUrls: ['./investment-details.component.scss']
 })
 export class InvestmentDetailsComponent implements OnInit {
-  investment!: Investment;
-  investments!: Investment[];
+  investment: Investment = {
+    name: '',
+    goal: '',
+    totalBalance: 0,
+    shortageIndicator: '',
+    stock: []
+  };
+  investments: Investment[] = [];
   stockForm!: FormGroup;
   totalBalance: number = 0;
 
@@ -38,7 +44,7 @@ export class InvestmentDetailsComponent implements OnInit {
 
   accumulatedBalanceHandler(percentage: number): number {
     const result = this.investment.totalBalance * (percentage / 100);
-    return result;
+    return result ?? 0;
   }
 
   private buildForm(): void {
@@ -106,12 +112,10 @@ export class InvestmentDetailsComponent implements OnInit {
       const newBalance = currBalance - this.stockForm.value[stock.id];
       const newPercentage = (newBalance / totalBalance) * 100;
       
-
       stock.percentage = Number(newPercentage.toFixed(2));
 
       return stock;
     });
-
 
     this.investments = this.investments.map(currInvestment => {
       if (currInvestment.name === this.investment.name) {

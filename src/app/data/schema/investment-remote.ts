@@ -5,5 +5,5 @@ export interface InvestmentRemote {
   objetivo: string;
   saldoTotal: number;
   indicadorCarencia: string;
-  acoes: StockRemote
+  acoes: StockRemote[];
 }
