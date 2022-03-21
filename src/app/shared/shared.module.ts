@@ -7,6 +7,7 @@ import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng
 import { ControlMessagesComponent } from './components/control-messages/control-messages.component';
 import { TitleComponent } from './components/title/title.component';
 import { AmountToRedeemValidatorDirective } from './directives/amount-to-redeem-validator.directive';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -37,11 +38,13 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     AmountToRedeemValidatorDirective,
     ControlMessagesComponent,
     TitleComponent,
+    SpinnerComponent,
   ],
   declarations: [
     AmountToRedeemValidatorDirective,
     ControlMessagesComponent,
     TitleComponent,
+    SpinnerComponent,
   ],
   providers: [
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
