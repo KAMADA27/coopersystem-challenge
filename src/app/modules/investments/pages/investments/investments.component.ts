@@ -3,7 +3,7 @@ import { Response } from '@data/schema/api';
 import { Investment } from '@data/schema/investment';
 import { InvestmentService } from '@core/services/investment.service';
 import { of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, finalize, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -14,18 +14,28 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class InvestmentsComponent implements OnInit {
   error: string | undefined;
   investments!: Investment[];
+  hasLocalInvestments: boolean = false;
+  isLoading: boolean = false;
 
   constructor(
     private investmentService: InvestmentService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+    this.hasLocalInvestments = !!this.investmentService.getInvestmentsFromLocal();
     this.getInvestmentService();
   }
 
   getInvestmentService(): void  {
+    if (this.hasLocalInvestments) {
+      this.investments = this.investmentService.getInvestmentsFromLocal();
+      return;
+    }
+
+    this.isLoading = true;
+
     this.investmentService.getInvestments()
       .pipe(
         tap((response: Response) => {
@@ -44,8 +54,12 @@ export class InvestmentsComponent implements OnInit {
               })
             }
           });
+          this.investmentService.setInvestmentsToLocal(this.investments);
         }),
-        catchError(error => of((this.error = error)))
+        catchError(error => of((this.error = error))),
+        finalize(() => {
+          this.isLoading = false;
+        })
       )
       .subscribe();
   }

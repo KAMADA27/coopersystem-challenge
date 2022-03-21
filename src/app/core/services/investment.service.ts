@@ -17,11 +17,20 @@ export class InvestmentService {
     return this.http.get<Response>(this.baseURL);
   }
 
+  getInvestmentsFromLocal(): Investment[] {
+    return JSON.parse(localStorage.getItem('investments')!);
+  }
+
+  setInvestmentsToLocal(investments: Investment[]): void {
+    const jsonData = JSON.stringify(investments);
+    localStorage.setItem('investments', jsonData);
+  }
+
   getInvestment(): Investment {
     return JSON.parse(localStorage.getItem('investment')!);
   }
 
-  setInvestment(investment: Investment) {
+  setInvestment(investment: Investment): void {
     const jsonData = JSON.stringify(investment);
     localStorage.setItem('investment', jsonData);
   }

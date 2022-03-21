@@ -15,7 +15,9 @@ import { AmountErrorModalComponent } from '../../components/amount-error-modal/a
 })
 export class InvestmentDetailsComponent implements OnInit {
   investment!: Investment;
+  investments!: Investment[];
   stockForm!: FormGroup;
+  totalBalance: number = 0;
 
   constructor(
     private investmentsService: InvestmentService,
@@ -26,6 +28,7 @@ export class InvestmentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.investment = this.investmentsService.getInvestment();
+    this.investments = this.investmentsService.getInvestmentsFromLocal();
     this.buildForm();
   }
 
@@ -89,10 +92,46 @@ export class InvestmentDetailsComponent implements OnInit {
     this._location.back();
   }
 
+  updateStock(): void {
+    let totalBalance = 0;
+
+    this.investment.stock.forEach(stock => {
+      totalBalance += this.stockForm.value[stock.id];
+    });
+
+    totalBalance = this.investment.totalBalance - totalBalance;
+
+    this.investment.stock = this.investment.stock.map(stock => {
+      const currBalance = this.accumulatedBalanceHandler(stock.percentage);
+      const newBalance = currBalance - this.stockForm.value[stock.id];
+      const newPercentage = (newBalance / totalBalance) * 100;
+      
+
+      stock.percentage = Number(newPercentage.toFixed(2));
+
+      return stock;
+    });
+
+
+    this.investments = this.investments.map(currInvestment => {
+      if (currInvestment.name === this.investment.name) {
+        currInvestment = this.investment;
+        currInvestment.totalBalance = totalBalance;
+      }
+
+      return currInvestment;
+    });
+
+    this.investmentsService.setInvestmentsToLocal(this.investments);
+  }
+
   submit(): void {
     if (this.stockForm.status === 'INVALID') {
       this.openErrorModal();
       return;
     }
+    
+    this.updateStock();
+    this.openSuccessModal();
   }
 }

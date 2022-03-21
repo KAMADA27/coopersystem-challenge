@@ -1,6 +1,6 @@
 <div class="container">
   <app-title [title]="'Investimentos'"></app-title>
-  <table class="table table-bordered">
+  <table class="table table-bordered" *ngIf="!isLoading">
     <thead class="table-dark">
       <tr class="investments__table-header">
         <th scope="col">Nome</th>
@@ -22,5 +22,6 @@
       </tr>
     </tbody>
   </table>
+  <app-spinner [isLoading]="isLoading"></app-spinner>
 </div>
 
