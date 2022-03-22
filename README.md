@@ -3,17 +3,17 @@
 
 > Desafio proposto pela Coopersystem utilizando o framework Angular.
 
-## 🚀 Instalando <coopersystem-challenge>
+## 🚀 Instalando coopersystem-challenge
 
-Para instalar o <coopersystem-challenge>, siga estas etapas:
+Para instalar o coopersystem-challenge, siga estas etapas:
 
 ```
 npm install
 ```
 
-## ☕ Usando <coopersystem-challenge>
+## ☕ Usando coopersystem-challenge
 
-Para usar <coopersystem-challenge>, siga estas etapas:
+Para usar coopersystem-challenge, siga estas etapas:
 
 ```
 npm start ou ng serve
